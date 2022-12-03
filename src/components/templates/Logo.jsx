@@ -1,17 +1,17 @@
-import './Logo.css'
-import React from 'react'
+import "./Logo.css";
+import React from "react";
+import { Link } from "react-router-dom";
 
-import ImgLogo from "../../assets/images/logo.png"
+import ImgLogo from "../../assets/images/logo.png";
 
 const Logo = (props) => {
-    return(
-        <aside className='logo'>
-            <a href="/" className='logo'>
-                <img src={ImgLogo} alt="logo" />
-            </a>
-        </aside>
-    )
-    
-}
+  return (
+    <aside className="logo">
+      <Link to="/" className="logo">
+        <img src={ImgLogo} alt="logo" />
+      </Link>
+    </aside>
+  );
+};
 
-export default Logo
+export default Logo;
