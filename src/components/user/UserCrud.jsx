@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Main from "../templates/Main";
+<<<<<<< HEAD
 import axios from "axios";
 
 const headerProps = {
@@ -96,4 +97,17 @@ class UserCrud extends Component {
   }
 }
 
+=======
+
+const headerProps = {
+  icon: "users",
+  title: " Usuários",
+  subtitle: "Cadastro de Usuários",
+};
+
+const UserCrud = (props) => {
+  return <Main {...headerProps}>Cadastro de Usuario</Main>;
+};
+
+>>>>>>> 5714ee5777f8137f27e94c8e13380ea92bdb75e5
 export default UserCrud;

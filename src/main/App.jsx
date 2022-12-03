@@ -6,9 +6,11 @@ import { BrowserRouter } from "react-router-dom";
 
 import HandleRoutes from "./Routes";
 
+import { BrowserRouter } from "react-router-dom";
+
 import Logo from "../components/templates/Logo";
 import Nav from "../components/templates/Nav";
-import Home from "../components/home/Home";
+import HandleRoutes from "../main/Routes";
 import Footer from "../components/templates/Footer";
 
 const App = () => {
