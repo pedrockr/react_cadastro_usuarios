@@ -33,11 +33,30 @@ class UserCrud extends Component {
       this.setState({ user: initialState.user, list });
     });
   }
+  getUpdatedList(user, add = true) {
+    const list = this.state.list.filter((u) => u.id !== user.id);
+    if (add) list.unshift(user);
+    return list;
+  }
+  updatedField(event) {
+    const user = { ...this.state.user };
+    user[event.target.name] = event.target.value;
+    this.setState({ user });
+  }
+  load(user) {
+    this.setState({ user });
+  }
+  remove(user) {
+    axios.delete(`${baseUrl}/${user.id}`).then((resp) => {
+      const list = this.getUpdatedList(user, false);
+      this.setState({ list });
+    });
+  }
   renderForm() {
     return (
       <div className="form">
         <div className="row">
-          <div className="col-12 com-md-6">
+          <div className="col-12 col-md-6">
             <div className="form-group">
               <label>Nome</label>
               <input
@@ -50,7 +69,7 @@ class UserCrud extends Component {
               />
             </div>
           </div>
-          <div className="col-12 com-md-6">
+          <div className="col-12 col-md-6">
             <div className="form-group">
               <label>E-mail</label>
               <input
@@ -81,18 +100,51 @@ class UserCrud extends Component {
       </div>
     );
   }
-  getUpdatedList(user) {
-    const list = this.state.list.filter((u) => u.id !== user.id);
-    list.unshift(user);
-    return list;
+  renderTable() {
+    return (
+      <table className="table mt-4">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>{this.renderRows()}</tbody>
+      </table>
+    );
   }
-  updatedField(event) {
-    const user = { ...this.state.user };
-    user[event.target.name] = event.target.value;
-    this.setState({ user });
+  renderRows() {
+    return this.state.list.map((user) => {
+      return (
+        <tr key={user.id}>
+          <td>{user.id}</td>
+          <td>{user.name}</td>
+          <td>{user.email}</td>
+          <td>
+            <button className="btn btn-warning" onClick={() => this.load(user)}>
+              <i className="fa fa-pencil"></i>
+            </button>
+            <button
+              className="btn btn-danger ms-2"
+              onClick={() => this.remove(user)}
+            >
+              <i className="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      );
+    });
   }
+
   render() {
-    return <Main {...headerProps}>{this.renderForm()}</Main>;
+    return (
+      <Main {...headerProps}>
+        {this.renderForm()}
+        {this.renderTable()}
+      </Main>
+    );
   }
 }
 
